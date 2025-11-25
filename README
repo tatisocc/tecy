@@ -25,3 +25,56 @@ Objetivo ("Brutus Text")
 El propósito de Tecy es generar el input de texto más puro y desestructurado posible, actuando como el pre-procesador ideal para alimentar sistemas que requieren datos de entrenamiento o diccionarios, como su proyecto Addcy (para diccionarios mejorados).
 
 Tecy garantiza que cualquier fuente de datos se reduzca a la materia prima lingüística necesaria para construir diccionarios y vocabularios de alta calidad.
+
+
+1. REQUERIMIENTOS E IMPORTS
+
+El script tecy.py necesita las siguientes librerías de Python:
+
+- pandas: Lectura de archivos CSV, XLSX y manipulación general.
+- openpyxl: Backend requerido por pandas para leer archivos .xlsx.
+- PyPDF2: Extracción de texto de archivos .pdf.
+- sys, re, os, xml.etree.ElementTree: Módulos estándar de Python.
+
+2. INSTALACIÓN Y VENV
+
+Se utiliza un entorno virtual aislado en la ruta $HOME/.tecy/tecy_venv/ para gestionar las dependencias.
+
+PASO 2.1: CREAR Y ACTIVAR VENV
+python3 -m venv $HOME/.tecy/tecy_venv
+
+source $HOME/.tecy/tecy_venv/bin/activate
+
+PASO 2.2: INSTALAR DEPENDENCIAS
+pip install pandas openpyxl PyPDF2
+
+PASO 2.3: DESACTIVAR
+deactivate
+
+3. EJECUCIÓN AUTOMATIZADA (FUNCIÓN BASH)
+
+Esta función en ~/.bashrc automatiza la activación y desactivación del venv y ejecuta el script tecy.py. 
+
+tecy() {
+    if [ -z "$1" ]; then
+        echo "Uso: tecy <archivo_entrada>"
+        return 1
+    fi
+
+    local SCRIPT_PATH="$HOME/.tecy/tecy.py" 
+    local VENV_ACTIVATE="$HOME/.tecy/tecy_venv/bin/activate" 
+
+    if [ ! -f "$VENV_ACTIVATE" ]; then
+        echo "Error: El archivo de activación NO se encontró en $HOME/.tecy/tecy_venv/"
+        echo "Asegúrese de que el venv exista y se haya creado con: python3 -m venv $HOME/.tecy/tecy_venv"
+        return 1
+    fi
+
+    source "$VENV_ACTIVATE" 2>/dev/null
+
+    python3 "$SCRIPT_PATH" "$@"
+
+    deactivate
+}
+
+Gemini puede cometer errores, así que verifica las respuestas.
