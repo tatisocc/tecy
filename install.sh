@@ -21,7 +21,7 @@ TECY_PATH=$(pwd)
 
 # Evitar duplicar el alias si ya existe
 if ! grep -q "alias tecy=" ~/.bash_aliases; then
-    echo "alias tecy='$TECY_PATH/.venv/bin/python3 $TECY_PATH/tecy.py'" >> ~/.bash_aliases
+    echo "alias tecy='$TECY_PATH/.venv/bin/python3 $TECY_PATH/.tecy/tecy.py'" >> ~/.bash_aliases
 fi
 
 echo "instalación completada!"
