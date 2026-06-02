@@ -11,7 +11,11 @@ python3 -m venv .venv
 echo "instalando dependencias..."
 ./.venv/bin/pip install -r requirements.txt
 
-# 3. Agregar alias al .bash_aliases
+# 3. Asegurar que las carpetas existan según tu árbol exacto
+echo "verificando estructura interna..."
+mkdir -p .tecy/tmp alls/ letters/
+
+# 4. Agregar alias al .bash_aliases
 echo "configurando alias 'tecy'..."
 TECY_PATH=$(pwd)
 
